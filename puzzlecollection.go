@@ -10,11 +10,6 @@ type Puzzles struct {
 	Puzzles []Puzzle
 }
 
-type Puzzle struct {
-	ID   string
-	Grid [9][9]int
-}
-
 func LoadBoards() Puzzles {
 	board, err := os.ReadFile("./puzzles.json")
 	if err != nil {
