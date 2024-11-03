@@ -7,7 +7,7 @@ type Puzzle struct {
 
 type MapOfSets map[int]map[int]struct{}
 
-func IsValid(board *[9][9]int) (bool, *MapOfSets, *MapOfSets, *MapOfSets) {
+func BoardValidator(board *[9][9]int) (bool, *MapOfSets, *MapOfSets, *MapOfSets) {
 	rows := make(map[int]map[int]struct{})
 	cols := make(map[int]map[int]struct{})
 	sections := make(map[int]map[int]struct{})
