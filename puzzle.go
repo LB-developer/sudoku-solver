@@ -5,7 +5,9 @@ type Puzzle struct {
 	Grid [9][9]int
 }
 
-func IsValid(board *[9][9]int) bool {
+type MapOfSets map[int]map[int]struct{}
+
+func IsValid(board *[9][9]int) (bool, *MapOfSets, *MapOfSets, *MapOfSets) {
 	rows := make(map[int]map[int]struct{})
 	cols := make(map[int]map[int]struct{})
 	sections := make(map[int]map[int]struct{})
@@ -51,15 +53,15 @@ func IsValid(board *[9][9]int) bool {
 
 			// check the set for the current cell
 			if _, found := rows[r][cell]; found {
-				return false
+				return false, nil, nil, nil
 			}
 
 			if _, found := cols[c][cell]; found {
-				return false
+				return false, nil, nil, nil
 			}
 
 			if _, found := sections[section][cell]; found {
-				return false
+				return false, nil, nil, nil
 			}
 
 			// add cell to current row, col, section set
@@ -69,5 +71,5 @@ func IsValid(board *[9][9]int) bool {
 		}
 	}
 
-	return true
+	return true, (*MapOfSets)(&rows), (*MapOfSets)(&cols), (*MapOfSets)(&sections)
 }
