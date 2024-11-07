@@ -1,23 +1,24 @@
 package main
 
-import "log"
+import (
+	"fmt"
+	"log"
+)
 
 func main() {
 	boards := LoadBoards()
 
 	for i := 0; i < len(boards.Puzzles); i++ {
-		valid, rows, cols, sections := BoardValidator(&boards.Puzzles[i].Grid)
+		valid, rows, cols, sections := validator(&boards.Puzzles[i].Grid)
 		if !valid {
 			log.Printf("%s is not valid and will be skipped", boards.Puzzles[i].ID)
 			continue
 		}
+		fmt.Printf("%s has been validated and will now be solved \n", boards.Puzzles[i].ID)
+		solved, _ := solve(0, 0, &boards.Puzzles[i].Grid, rows, cols, sections)
 
-		log.Printf("%s is valid and will be solved with the following rows, cols, sections", boards.Puzzles[i].ID)
-		log.Printf("rows: %v", rows)
-		log.Printf("cols: %v", cols)
-		log.Printf("sections: %v", sections)
-
-		// SolveBoard(rows, cols, sections)
-
+		for _, row := range solved {
+			fmt.Println(row)
+		}
 	}
 }
