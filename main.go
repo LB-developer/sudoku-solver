@@ -15,9 +15,13 @@ func main() {
 			continue
 		}
 		fmt.Printf("%s has been validated and will now be solved \n", boards.Puzzles[i].ID)
-		solved, _ := solve(0, 0, &boards.Puzzles[i].Grid, rows, cols, sections)
+		for _, row := range boards.Puzzles[i].Grid {
+			fmt.Println(row)
+		}
+		solve(0, 0, &boards.Puzzles[i].Grid, rows, cols, sections)
 
-		for _, row := range solved {
+		fmt.Println("=============================")
+		for _, row := range boards.Puzzles[i].Grid {
 			fmt.Println(row)
 		}
 	}
