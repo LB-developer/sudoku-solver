@@ -15,7 +15,19 @@ func validator(board *[9][9]int) (bool, *MapOfSets, *MapOfSets, *MapOfSets) {
 	for r := 0; r < 9; r++ {
 		for c := 0; c < 9; c++ {
 			cell := board[r][c]
+			section := (r / 3) + 3*(c/3)
+			// create a new set if it doesn't exist
+			if rows[r] == nil {
+				rows[r] = make(map[int]struct{})
+			}
 
+			if cols[c] == nil {
+				cols[c] = make(map[int]struct{})
+			}
+
+			if sections[section] == nil {
+				sections[section] = make(map[int]struct{})
+			}
 			if cell == 0 {
 				continue
 			}
@@ -36,20 +48,6 @@ func validator(board *[9][9]int) (bool, *MapOfSets, *MapOfSets, *MapOfSets) {
 				full e.g. (top left)     (row 0 / 3) + 3 * (col 0 / 3) == 0
 				full e.g. (bottom right) (row 8 / 3) + 3 * (col 8 / 3) == 8
 			*/
-			section := (r / 3) + 3*(c/3)
-
-			// create a new set if it doesn't exist
-			if rows[r] == nil {
-				rows[r] = make(map[int]struct{})
-			}
-
-			if cols[c] == nil {
-				cols[c] = make(map[int]struct{})
-			}
-
-			if sections[section] == nil {
-				sections[section] = make(map[int]struct{})
-			}
 
 			// check the set for the current cell
 			if _, found := rows[r][cell]; found {
